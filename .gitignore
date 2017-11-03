@@ -1,0 +1,6 @@
+*.pyc
+*.xml
+*.idea/
+*.vscode/
+mysite/local_settings.py
+static/
