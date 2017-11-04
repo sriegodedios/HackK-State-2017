@@ -1,18 +1,26 @@
 {% load static %}
 
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="{% static 'history/styles/css/style.css' %}">
     </head>
     <header>
-        <a name="top"></a>
-        <a href="#top">Hurricane</a>
-        
+        <a href="history/base.html">Hurricane</a>
+        <a href="about-us.html">About Us</a>
+        <a href="future-hurricanes.html">Future Hurricanes</a>
     </header>
     <body>
-        hi
-        <p>
-            hello Dylan Staatz
-        </p>
+        <title>
+            {% block title %}Past Hurricanes{% endblock %}</title>
+        <form>
+            <input type ="text" name="City" placeholder="Enter the name of your city">
+        </form>
+        <h3>My Google Maps Demo</h3>
+        <div id="map"></div>
+        <script src="{% static 'history/scripts/map.js' %}"></script>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs45NMgk3kOMM47toBBXMsZoNSsJDwers&callback=initMap">
+        </script>
     </body>
 </html>
