@@ -12,7 +12,24 @@ def index(request):
     header = ['Date', 'Name', 'Wind Speed', 'Category']
     output = []
     for i in Hurricane.objects.all().order_by('-max_wind')[:30]:
-        output.append([i.start_date.date(), i.name, i.max_wind, i.category])
+        temp_name = "N/A" if i.name == "UNNAMED" else i.name
+        output.append([i.start_date.date(), temp_name, i.max_wind, i.category])
+
+    return render(request, 'history/index.html', {'table_head': header, 'table': output})
+
+def per_year(request):
+    hurricanes_per_year = dict()
+    for x in Hurricane.objects.filter(max_wind__gte=50).order_by('start_date'):
+        if x.start_date.year in hurricanes_per_year.keys():
+            hurricanes_per_year[x.start_date.year] += 1
+        else:
+            hurricanes_per_year[x.start_date.year] = 1
+
+    output = []
+    header = ['Year', 'Frequency']
+    for key in hurricanes_per_year.keys():
+        output.append([key, hurricanes_per_year[key]])
+    
 
     return render(request, 'history/index.html', {'table_head': header, 'table': output})
 

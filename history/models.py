@@ -1,6 +1,9 @@
 from datetime import datetime
 import pickle
 import time
+import csv
+import pandas as pd
+from matplotlib import pyplot
 
 from django.db import models
 
@@ -13,10 +16,6 @@ class Hurricane(models.Model):
     name = models.CharField(max_length=10)
 
     def set_max_wind(self):
-        # for x in HurricanePoint.objects.filter(parent=self).order_by('-wind'):
-        #     print(x.wind, end=" ")
-        # print()
-        # print(HurricanePoint.objects.filter(parent=self).order_by('-wind')[0].wind)
         self.max_wind = HurricanePoint.objects.filter(parent=self).order_by('-wind')[0].wind
 
     def set_start_date(self):
@@ -47,6 +46,26 @@ class Hurricane(models.Model):
         return self.name
     
     @staticmethod
+    def per_year():
+        hurricanes_per_year = dict()
+        for x in Hurricane.objects.filter(max_wind__gte=50).order_by('start_date'):
+            if x.start_date.year in hurricanes_per_year.keys():
+                hurricanes_per_year[x.start_date.year] += 1
+            else:
+                hurricanes_per_year[x.start_date.year] = 1
+
+        output = []
+        header = ['Year', 'Frequency']
+        for key in hurricanes_per_year.keys():
+            output.append([key, hurricanes_per_year[key]])
+        
+        with open('output.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(header)
+            for row in output:
+                writer.writerow(row)
+
+    @staticmethod
     def PrintAll():
         for x in Hurricane.objects.all().order_by("max_wind"):
             print(x.max_wind)
@@ -55,8 +74,8 @@ class Hurricane(models.Model):
     def Update():
         
         for item in Hurricane.objects.all():
-            #item.set_max_wind()
-            #item.set_start_date()
+            item.set_max_wind()
+            item.set_start_date()
             item.set_category()
             item.save()
 
@@ -102,3 +121,4 @@ class HurricanePoint(models.Model):
 
     def __str__(self):
         return "DateTime: {0}, Lat: {1}, Long: {2}, Wind Speed: {3}".format(str(self.date), str(self.latitude), str(self.longitude), str(self.wind))
+
