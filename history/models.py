@@ -12,10 +12,43 @@ class Hurricane(models.Model):
 
     name = models.CharField(max_length=10)
 
+    def set_max_wind(self):
+        self.max_wind = HurricanePoint.objects.filter(parent=self).order_by('wind')[0].wind
+
+    def set_start_date(self):
+        self.start_date = HurricanePoint.objects.filter(parent=self).order_by('date')[0].date
+
+    def set_category(self):
+        wind = self.max_wind
+        if wind >= 157:
+            self.category = 5
+        if wind >= 130:
+            self.category = 4
+        if wind >= 111:
+            self.category = 3
+        if wind >= 96:
+            self.category = 2
+        if wind >= 74:
+            self.category = 1
+        self.category = 0
+
+    max_wind = models.IntegerField()
+
+    start_date = models.DateTimeField()
+
+    category = models.IntegerField()
+
     def __str__(self):
         return self.name
 
-    # points = models.ManyToManyField("HurricanePoint")
+    @staticmethod
+    def Update():
+        
+        for item in Hurricane.objects.all():
+            item.set_max_wind()
+            item.set_start_date()
+            item.set_max_wind()
+            item.save()
 
     @staticmethod
     def Add(filename='C:\\Users\\Dylan Staatz\\Documents\\Documents\\Github\\HackK-State-2017\\data\\cleaned_data.pickle'):
