@@ -13,6 +13,8 @@ with open("atlantic.csv") as file:
     for row in reader:
         ID = row[0]
 
+        name = row[1].strip()
+
         year = int(row[2][:4])
         month = int(row[2][4:6])
         day = int(row[2][6:8])
@@ -35,13 +37,13 @@ with open("atlantic.csv") as file:
         
         wind = int(row[8])
 
-        lst = (date, lat, long, wind)
-
+        lst = (name, date, lat, long, wind)
+        print(lst)
         if ID in d.keys():
             d[ID].append(lst)
         else:
             d[ID] = [lst]
         
-with open("history_data.pickle", "wb") as file:
+with open("cleaned_data.pickle", "wb") as file:
     pickle.dump(d, file)
     
