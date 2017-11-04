@@ -9,5 +9,11 @@ header {
 
 body {
   background-color: yellow; }
+  body form {
+    width: 20.8333333333%; }
+
+#map {
+  height: 400px;
+  width: 100%; }
 
 /*# sourceMappingURL=style.css.map */
