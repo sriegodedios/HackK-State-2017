@@ -3,11 +3,11 @@
 {% block content %}
 {% load static %}
 
-<table>
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             {% for item in table_head %}
-                <td> {{ item }} </td>
+                <th> {{ item }} </th>
             {% endfor %}
         </tr>
     </thead>
