@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    ''
 ]
 
 MIDDLEWARE = [
@@ -120,9 +119,8 @@ USE_TZ = True
 
 PROJECT_DIR  = os.path.dirname(__file__) 
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/staticfiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
-    # os.path.join(PROJECT_DIR, 'staticfiles'),
-    os.path.join(os.path.dirname(PROJECT_DIR), 'mainForm/static'),
+    os.path.join(os.path.dirname(PROJECT_DIR), 'history/static'),
 )

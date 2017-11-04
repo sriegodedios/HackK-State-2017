@@ -3,4 +3,4 @@
 *.idea/
 *.vscode/
 mysite/local_settings.py
-static/
+staticfiles/
