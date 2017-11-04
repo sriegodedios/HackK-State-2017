@@ -13,24 +13,29 @@ class Hurricane(models.Model):
     name = models.CharField(max_length=10)
 
     def set_max_wind(self):
-        self.max_wind = HurricanePoint.objects.filter(parent=self).order_by('wind')[0].wind
+        # for x in HurricanePoint.objects.filter(parent=self).order_by('-wind'):
+        #     print(x.wind, end=" ")
+        # print()
+        # print(HurricanePoint.objects.filter(parent=self).order_by('-wind')[0].wind)
+        self.max_wind = HurricanePoint.objects.filter(parent=self).order_by('-wind')[0].wind
 
     def set_start_date(self):
-        self.start_date = HurricanePoint.objects.filter(parent=self).order_by('date')[0].date
+        self.start_date = HurricanePoint.objects.filter(parent=self).order_by('-date')[0].date
 
     def set_category(self):
         wind = self.max_wind
         if wind >= 157:
             self.category = 5
-        if wind >= 130:
+        elif wind >= 130:
             self.category = 4
-        if wind >= 111:
+        elif wind >= 111:
             self.category = 3
-        if wind >= 96:
+        elif wind >= 96:
             self.category = 2
-        if wind >= 74:
+        elif wind >= 74:
             self.category = 1
-        self.category = 0
+        else:
+            self.category = 0
 
     max_wind = models.IntegerField()
 
@@ -40,14 +45,19 @@ class Hurricane(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @staticmethod
+    def PrintAll():
+        for x in Hurricane.objects.all().order_by("max_wind"):
+            print(x.max_wind)
 
     @staticmethod
     def Update():
         
         for item in Hurricane.objects.all():
-            item.set_max_wind()
-            item.set_start_date()
-            item.set_max_wind()
+            #item.set_max_wind()
+            #item.set_start_date()
+            item.set_category()
             item.save()
 
     @staticmethod

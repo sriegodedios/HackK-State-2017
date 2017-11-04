@@ -11,8 +11,8 @@ def index(request):
     '''
     header = ['Date', 'Name', 'Wind Speed', 'Category']
     output = []
-    for i in Hurricane.objects.order_by('-max_wind')[:30]:
-        output.append([i.start_date, i.name, i.max_wind, i.category])
+    for i in Hurricane.objects.all().order_by('-max_wind')[:30]:
+        output.append([i.start_date.date(), i.name, i.max_wind, i.category])
 
     return render(request, 'history/index.html', {'table_head': header, 'table': output})
 
