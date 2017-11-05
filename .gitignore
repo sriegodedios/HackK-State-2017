@@ -5,3 +5,4 @@
 __pycache__/
 mysite/local_settings.py
 staticfiles/
+venv/
