@@ -25,13 +25,15 @@ def per_year(request):
         else:
             hurricanes_per_year[x.start_date.year] = 1
 
-    output = []
-    header = ['Year', 'Frequency']
+    
+    years = []
+    data = []
     for key in hurricanes_per_year.keys():
-        output.append([key, hurricanes_per_year[key]])
+        years.append(key)
+        data.append(hurricanes_per_year[key])
     
 
-    return render(request, 'history/index.html', {'table_head': header, 'table': output})
+    return render(request, 'history/index.html', {'table_head': header, 'years': years, 'data': data})
 
 def generic(request, template_name):
     return render(request, template_name)
