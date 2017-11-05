@@ -1,5 +1,10 @@
 ''' Handles Gets and Posts for history app '''
 
+from pandas import Series
+from statsmodels.tsa.ar_model import AR
+from sklearn.metrics import mean_squared_error
+import numpy
+
 from django.shortcuts import render
 
 from .models import *
@@ -24,16 +29,17 @@ def per_year(request):
             hurricanes_per_year[x.start_date.year] += 1
         else:
             hurricanes_per_year[x.start_date.year] = 1
-
     
+    series = Series(data=hurricanes_per_year)
+
+
     years = []
     data = []
     for key in hurricanes_per_year.keys():
         years.append(key)
         data.append(hurricanes_per_year[key])
-    
 
-    return render(request, 'history/index.html', {'table_head': header, 'years': years, 'data': data})
+    return render(request, 'history/index.html', {'years': years, 'data': data})
 
 def generic(request, template_name):
     return render(request, template_name)
