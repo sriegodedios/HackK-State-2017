@@ -1,0 +1,19 @@
+{% extends 'history/base.html' %}
+{% block title %} Google Map Demo {% endblock %}
+{% block content %}
+{% load static %}
+    <h1> Training on Data </h1>
+    <p> 
+        For this project we needed to collect and understand our data before we could 
+        make future predictions of hurricanes from the Atlantic coast. We collected our
+        data from <a href="https://www.kaggle.com/noaa/hurricane-database/data">here.</a>
+        Next we need to begin understanding our data so we could pick out a model. We
+        chose to use an autoregression model because we mainly wanted to use our data to 
+        predict future observations. To make sure we fitting our data fairly, we split our 
+        data into thirds and used the first two thirds to train on while leaving the last 
+        third to test aganist. Below is the results of the test with the final Mean Squared
+        Error of the predictions being 27.954.
+    </p>
+    <img src="{% static 'history/images/Prediction_Testing.png' %}" id="training-photo">
+
+{% endblock %}

@@ -6,25 +6,61 @@
         <title>
             {% block title %}{% endblock %}
         </title>
-        
-        <link rel="stylesheet" type="text/css" href="{% static 'history/styles/css/style.css' %}">
-    </head>
-    <header>
-        <a href="history/base.html">Hurricane</a>
-        <a href="about-us.html">About Us</a>
-        <a href="future-hurricanes.html">Future Hurricanes</a>
-    </header>
-    <body>
 
-        <form>
-            <input type ="text" name="City" placeholder="Enter the name of your city">
-        </form>
-        
-        <div class="content">
-            {% block content %}
-            {% endblock %}
+        <link rel="stylesheet" type="text/css" href="{% static 'history/styles/css/style.css' %}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    </head>
+
+    <body>
+      <nav class="navbar navbar-toggleable-md navbar-light navbar navbar-inverse bg-primary">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'index' %}"> Hectic Hurricanes </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'worst' %}"> Worst Hurricanes </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'training' %}"> Training </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'predict' %}"> Predictions </a>
+      </li>
+      <!--li class="nav-item">
+        <div class="input-group">
+          <input class="form-control" type ="text" name="City" placeholder="Enter the name of your city">
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </span>
+      </li-->
+    </ul>
+  </div>
+</nav>
+      <!--header>
+          <a href="history/base.html">Hurricane</a>
+          <a href="about-us.html">About Us</a>
+          <a href="future-hurricanes.html">Future Hurricanes</a>
+      </header-->
+      <div class="container-fluid">
+        <div class="col-lg-12">
+          <br/>
+
+
+          <div class="content">
+              {% block content %}
+              {% endblock %}
+
 
         </div>
+      </div>
+      </div>
 
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     </body>
 </html>
