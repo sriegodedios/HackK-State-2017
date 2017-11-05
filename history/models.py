@@ -3,7 +3,6 @@ import pickle
 import time
 import csv
 import pandas as pd
-from matplotlib import pyplot
 
 from django.db import models
 
