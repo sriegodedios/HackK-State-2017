@@ -14,7 +14,26 @@
 .card-header {
   text-align: center;
 }
-
+.card{
+  width: 950px;
+  margin-left: auto;
+  margin-right: auto;
+  h5{
+    //padding-left: 20px;
+    margin: auto;
+    width: 75%;
+  }
+  p{
+    padding: 10px; 
+    //padding-left: 50px;
+    margin:auto;
+    width: 75%;
+  }
+  img{
+    width: 250px;
+    height: 250px;
+  }
+}
 html, body {
   height: 100%;
   margin: 0;
@@ -73,6 +92,7 @@ html, body {
     position:absolute;
     right: 0px;
     left: auto;
+    outline: none;
   }
 }
 /*# sourceMappingURL=style.css.map */

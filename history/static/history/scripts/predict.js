@@ -10,9 +10,11 @@ function initMap() {
   var geocoder = new google.maps.Geocoder();
 
   document.getElementById('submit').addEventListener('click', function() {
+    alert("click");
     geocodeAddress(geocoder, map);
   });
   document.getElementById('address').addEventListener('keyup', function(event) {
+    alert("enter");
     event.preventDefault();
     if(event.keyCode === 13){
       geocodeAddress(geocoder, map);
@@ -27,9 +29,7 @@ function initMap() {
     geocoder.geocode({'address': address}, function(results, status) {
       if (status === 'OK') {
         var loc = results[0].geometry.location;
-        restoreSearch();
         window.location.href="/predict/" + loc.lat() + "/" + loc.lng();
-        
       } 
       else {
         alert('Geocode was not successful for the following reason: ' + status);

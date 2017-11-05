@@ -12,6 +12,21 @@
 .card-header {
   text-align: center; }
 
+.card {
+  width: 950px;
+  margin-left: auto;
+  margin-right: auto; }
+  .card h5 {
+    margin: auto;
+    width: 75%; }
+  .card p {
+    padding: 10px;
+    margin: auto;
+    width: 75%; }
+  .card img {
+    width: 250px;
+    height: 250px; }
+
 html, body {
   height: 100%;
   margin: 0;
@@ -63,7 +78,8 @@ html, body {
   .historical #floating-panel input[type="image"] {
     position: absolute;
     right: 0px;
-    left: auto; }
+    left: auto;
+    outline: none; }
 
 /*# sourceMappingURL=style.css.map */
 
