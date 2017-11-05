@@ -2,6 +2,7 @@
 
 from pandas import Series
 from statsmodels.tsa.ar_model import AR
+from statsmodels.tsa.ar_model import ARResults
 from sklearn.metrics import mean_squared_error
 import numpy
 
@@ -24,13 +25,14 @@ def index(request):
 
 def per_year(request):
     hurricanes_per_year = dict()
-    for x in Hurricane.objects.filter(max_wind__gte=50).order_by('start_date'):
+    for x in Hurricane.objects.filter(category__gte=1).order_by('start_date'):
         if x.start_date.year in hurricanes_per_year.keys():
             hurricanes_per_year[x.start_date.year] += 1
         else:
             hurricanes_per_year[x.start_date.year] = 1
     
-    series = Series(data=hurricanes_per_year)
+        
+
 
 
     years = []
