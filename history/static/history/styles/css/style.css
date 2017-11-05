@@ -1,10 +1,42 @@
-
 #map {
-  height: 400px;
+  height: 500px;
   width: 100%;
-}
+  border-radius: 5px; }
 
 #training-photo {
-  max-width:100%;
-}
+  max-width: 100%; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+#floating-panel {
+  position: absolute;
+  top: 30px;
+  left: 25px;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 20px;
+  padding-left: 10px; }
+  #floating-panel input[type="textbox"] {
+    position: relative;
+    border: none;
+    padding: 3px;
+    outline: none;
+    z-index: 0; }
+  #floating-panel input[type="image"] {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    left: 2px;
+    margin-right: 4px; }
+
+/*# sourceMappingURL=style.css.map */
+
 /*# sourceMappingURL=style.css.map */
