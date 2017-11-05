@@ -24,7 +24,7 @@ def worst(request, lat=None, long=None):
         output = []
         for i, x in enumerate(Hurricane.objects.all().order_by('-max_wind')[:100]):
             temp_name = "N/A" if x.name == "UNNAMED" else x.name
-            output.append([i, x.start_date.date(), temp_name, x.max_wind, x.category])
+            output.append([i+1, x.start_date.date(), temp_name, x.max_wind, x.category])
         return render(request, 'history/worst.html', {'table_head': header, 'table': output})
 
     radius = 1.75
@@ -77,7 +77,7 @@ def predict(request):
 
     # fit model
     model = AR(data)
-    model_fit = model.fit(maxlag=50, disp=False)
+    model_fit = model.fit(maxlag=5, disp=False)
     
     # predict with model
     predictions = model_fit.predict(start=len(data), end=len(data) + 10)
@@ -86,8 +86,6 @@ def predict(request):
         years.append(last_year + i + 1)
         future_data.append(x)
         last_ob = x
-
-    
 
     return render(request, 'history/graph.html', {'axis_labels': axis_labels, 'historic_data': historic_data, 'years': years, 'future_data': future_data})
 
