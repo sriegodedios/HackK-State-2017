@@ -13,17 +13,21 @@ from .models import *
 
 # Create your views here.
 
-def worst(request, lat=None, long=None):
+def worst(request, lat=None, long=None, radius=None):
     ''' 
         Sends a list of the worst hurricanes overall
     '''
-    header = ['Date', 'Name', 'Wind Speed', 'Category']
-    output = []
-    for i in Hurricane.objects.all().order_by('-max_wind')[:30]:
-        temp_name = "N/A" if i.name == "UNNAMED" else i.name
-        output.append([i.start_date.date(), temp_name, i.max_wind, i.category])
+    print(lat, long, radius)
+    if lat == None or long == None:
+        header = ['Date', 'Name', 'Wind Speed', 'Category']
+        output = []
+        for i in Hurricane.objects.all().order_by('-max_wind')[:30]:
+            temp_name = "N/A" if i.name == "UNNAMED" else i.name
+            output.append([i.start_date.date(), temp_name, i.max_wind, i.category])
+        return render(request, 'history/worst.html', {'table_head': header, 'table': output})
+    
 
-    return render(request, 'history/worst.html', {'table_head': header, 'table': output})
+    return render(request, 'history/worst.html')
 
 def predict(request):
     hurricanes_per_year = dict()
