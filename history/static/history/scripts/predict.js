@@ -10,11 +10,9 @@ function initMap() {
   var geocoder = new google.maps.Geocoder();
 
   document.getElementById('submit').addEventListener('click', function() {
-    alert("click");
     geocodeAddress(geocoder, map);
   });
   document.getElementById('address').addEventListener('keyup', function(event) {
-    alert("enter");
     event.preventDefault();
     if(event.keyCode === 13){
       geocodeAddress(geocoder, map);

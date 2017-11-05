@@ -12,18 +12,18 @@
 .card-header {
   text-align: center; }
 
-.card {
+.aboutUs {
   width: 950px;
   margin-left: auto;
   margin-right: auto; }
-  .card h5 {
+  .aboutUs h5 {
     margin: auto;
     width: 75%; }
-  .card p {
+  .aboutUs p {
     padding: 10px;
     margin: auto;
     width: 75%; }
-  .card img {
+  .aboutUs img {
     width: 250px;
     height: 250px; }
 
