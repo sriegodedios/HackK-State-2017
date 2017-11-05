@@ -25,7 +25,10 @@ def history(request, lat=None, long=None):
         for i, x in enumerate(Hurricane.objects.all().order_by('-max_wind')[:100]):
             temp_name = "N/A" if x.name == "UNNAMED" else x.name
             output.append([i+1, x.start_date.date(), temp_name, x.max_wind, x.category])
-        return render(request, 'history/historical.html', {'table_head': header, 'table': output})
+        
+        isNull = len(output) == 0
+
+        return render(request, 'history/historical.html', {'table_head': header, 'table': output, 'null': isNull})
 
     radius = 1.75
     newlat = float(lat)
@@ -47,8 +50,12 @@ def history(request, lat=None, long=None):
     for i, x in enumerate(newHurricanes):
         temp_name = "N/A" if x.name == "UNNAMED" else x.name
         output.append([i+1, x.start_date.date(), temp_name, x.max_wind, x.category])
+    
+    isNull = len(output) == 0
+    print(output)
+    print(isNull)
 
-    return render(request, 'history/historical.html', {'table_head': header, 'table': output})
+    return render(request, 'history/historical.html', {'table_head': header, 'table': output, 'null': isNull})
 
 def predict(request, lat=None, long=None):
 
@@ -82,7 +89,6 @@ def predict(request, lat=None, long=None):
             else:
                 hurricanes_per_year[x.start_date.year] = 1
     
-    isNull = False
 
     axis_labels = ["Year", "Frequency"]
     years = []
@@ -110,10 +116,10 @@ def predict(request, lat=None, long=None):
     for i, prediction in enumerate(predictions):
         x = prediction + last_ob
         years.append(last_year + i + 1)
-        future_data.append(x)
+        future_data.append(x//1 + 1 if x % 1 >= 0.5 else x//1)
         last_ob = x
 
-    return render(request, 'history/predict.html', {'axis_labels': axis_labels, 'historic_data': historic_data, 'years': years, 'future_data': future_data, 'null': isNull})
+    return render(request, 'history/predict.html', {'axis_labels': axis_labels, 'historic_data': historic_data, 'years': years, 'future_data': future_data})
 
 def generic(request, template_name):
     return render(request, template_name)
