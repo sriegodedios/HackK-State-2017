@@ -26,7 +26,7 @@ size = int(len(X) * 0.66)
 train, test = X[0:size], X[size:]
 # train autoregression
 model = AR(train)
-model_fit = model.fit(maxlag=40, disp=False)
+model_fit = model.fit(maxlag=5, disp=False)
 window = model_fit.k_ar
 coef = model_fit.params
 # walk forward over time steps in test
@@ -40,6 +40,13 @@ for t in range(len(test)):
 error = mean_squared_error(test, predictions)
 print('Test MSE: %.3f' % error)
 # plot
-pyplot.plot(test)
-pyplot.plot(predictions, color='red')
+pyplot.plot(train, color='purple')
+testplot = [None for i in range(size)]
+for x in test:
+	testplot.append(x)
+pyplot.plot(testplot)
+predictionsplot = [None for i in range(size)]
+for x in predictions:
+	predictionsplot.append(x)
+pyplot.plot(predictionsplot, color='red')
 pyplot.show()

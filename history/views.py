@@ -2,9 +2,10 @@
 
 from pandas import Series
 from statsmodels.tsa.ar_model import AR
-from statsmodels.tsa.ar_model import ARResults
 from sklearn.metrics import mean_squared_error
 import numpy
+
+from .helpers import *
 
 from django.shortcuts import render
 
@@ -31,14 +32,36 @@ def per_year(request):
         else:
             hurricanes_per_year[x.start_date.year] = 1
 
+    # load dataset
+    series = Series(hurricanes_per_year)
+    last_ob = series.values[-1]
+    last_year = series.keys()[-1]
+
+    #difference dataset
+    data = difference(series.values)
+
+    # fit model
+    model = AR(data)
+    model_fit = model.fit(maxlag=5, disp=False)
+
+    future_years = []
+    future_data = []
+    # predict with model
+    predictions = model_fit.predict(start=len(data), end=len(data) + 10)
+    for i, prediction in enumerate(predictions):
+        x = prediction + last_ob
+        future_years.append(last_year + i + 1)
+        future_data = x
+        last_ob = x
+
     header = ["Year", "Frequency"]
-    years = []
-    data = []
+    historic_years = []
+    historic_data = []
     for key in hurricanes_per_year.keys():
-        years.append(key)
-        data.append(hurricanes_per_year[key])
-    
-    return render(request, 'history/graph.html', {'table_head': header, 'years': years, 'data': data})
+        historic_years.append(key)
+        historic_data.append(hurricanes_per_year[key])
+
+    return render(request, 'history/graph.html', {'table_head': header, 'historic_years': historic_years, 'historic_data': historic_data, 'future_years': future_years, 'future_data': future_data})
 
 def generic(request, template_name):
     return render(request, template_name)
