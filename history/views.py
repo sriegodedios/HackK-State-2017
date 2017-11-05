@@ -14,7 +14,7 @@ from .models import *
 
 # Create your views here.
 
-def worst(request, lat=None, long=None):
+def history(request, lat=None, long=None):
     ''' 
         Sends a list of the worst hurricanes overall
     '''
@@ -25,7 +25,7 @@ def worst(request, lat=None, long=None):
         for i, x in enumerate(Hurricane.objects.all().order_by('-max_wind')[:100]):
             temp_name = "N/A" if x.name == "UNNAMED" else x.name
             output.append([i+1, x.start_date.date(), temp_name, x.max_wind, x.category])
-        return render(request, 'history/worst.html', {'table_head': header, 'table': output})
+        return render(request, 'history/historical.html', {'table_head': header, 'table': output})
 
     radius = 1.75
     newlat = float(lat)
@@ -48,15 +48,41 @@ def worst(request, lat=None, long=None):
         temp_name = "N/A" if x.name == "UNNAMED" else x.name
         output.append([i+1, x.start_date.date(), temp_name, x.max_wind, x.category])
 
-    return render(request, 'history/worst.html', {'table_head': header, 'table': output})
+    return render(request, 'history/historical.html', {'table_head': header, 'table': output})
 
-def predict(request):
+def predict(request, lat=None, long=None):
+
     hurricanes_per_year = dict()
-    for x in Hurricane.objects.filter(category__gte=1).order_by('start_date'):
-        if x.start_date.year in hurricanes_per_year.keys():
-            hurricanes_per_year[x.start_date.year] += 1
-        else:
-            hurricanes_per_year[x.start_date.year] = 1
+    if lat == None or long == None:
+        for x in Hurricane.objects.filter(category__gte=0).order_by('start_date'):
+            if x.start_date.year in hurricanes_per_year.keys():
+                hurricanes_per_year[x.start_date.year] += 1
+            else:
+                hurricanes_per_year[x.start_date.year] = 1
+    else:
+        radius = 1.75
+        newlat = float(lat)
+        newlong = float(long) * -1
+        print(newlat, newlong)
+        hurricanes = []
+
+        for point in HurricanePoint.objects.filter(
+                latitude__gte=newlat-radius, 
+                latitude__lte=newlat+radius, 
+                longitude__gte=newlong-radius, 
+                longitude__lte=newlong+radius
+                ):
+            if point.parent not in hurricanes:
+                hurricanes.append(point.parent)
+        for i in range(1851, 2015):
+            hurricanes_per_year[i] = 0
+        for x in sorted(hurricanes, key=attrgetter('start_date')):
+            if x.start_date.year in hurricanes_per_year.keys():
+                hurricanes_per_year[x.start_date.year] += 1
+            else:
+                hurricanes_per_year[x.start_date.year] = 1
+    
+    isNull = False
 
     axis_labels = ["Year", "Frequency"]
     years = []
@@ -87,7 +113,7 @@ def predict(request):
         future_data.append(x)
         last_ob = x
 
-    return render(request, 'history/graph.html', {'axis_labels': axis_labels, 'historic_data': historic_data, 'years': years, 'future_data': future_data})
+    return render(request, 'history/predict.html', {'axis_labels': axis_labels, 'historic_data': historic_data, 'years': years, 'future_data': future_data, 'null': isNull})
 
 def generic(request, template_name):
     return render(request, template_name)

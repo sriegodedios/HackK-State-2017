@@ -46,7 +46,7 @@ class Hurricane(models.Model):
     @staticmethod
     def per_year():
         hurricanes_per_year = dict()
-        for x in Hurricane.objects.filter(max_wind__gte=50).order_by('start_date'):
+        for x in Hurricane.objects.filter(max_wind__gte=5).order_by('start_date'):
             if x.start_date.year in hurricanes_per_year.keys():
                 hurricanes_per_year[x.start_date.year] += 1
             else:
