@@ -3,6 +3,9 @@
   width: 100%;
   border-radius: 5px; }
 
+.historical #map {
+  display: none; }
+
 #training-photo {
   max-width: 100%; }
 
@@ -36,6 +39,23 @@ html, body {
     top: 5px;
     left: 2px;
     margin-right: 4px; }
+
+.historical #floating-panel {
+  position: relative;
+  padding: 0px;
+  top: -10px;
+  left: 0px;
+  padding-left: 0px;
+  border: 1.2px solid #f2f2f2;
+  border-radius: 5px;
+  padding-left: 2px; }
+  .historical #floating-panel input[type="textbox"] {
+    width: 94%;
+    bottom: 1px; }
+  .historical #floating-panel textarea:focus, .historical #floating-panel input:focus {
+    outline-style: solid;
+    outline-width: 1px;
+    outline-color: #0275d8; }
 
 /*# sourceMappingURL=style.css.map */
 

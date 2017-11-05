@@ -7,7 +7,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 
-  <br/>
+<div class="historical">
+    <div id="floating-panel">
+        <input id="address" type="textbox" placeholder="Search your City">
+        <input id="submit" type="image" src="{% static 'history/images/search-128.png' %}">
+    </div>
+    <div id="map"></div>
+    <script src="{% static 'history/scripts/predict.js' %}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs45NMgk3kOMM47toBBXMsZoNSsJDwers&callback=initMap"></script>
+</div>
 <div class="card">
   <h3 class="card-header">Hurricanes Per Year</h3>
   <div class="card-body">
