@@ -1,6 +1,6 @@
  function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
+      zoom: 4,
       center: {lat: 39.1836, lng: -96.5717}
     });
     var geocoder = new google.maps.Geocoder();
@@ -16,6 +16,9 @@
       google.maps.event.addListener(map, 'click', function(event) {
         loc = event.latLng;
         placeMarker(loc);
+        if(typeof(Storage) !== "undefined") {
+          geocodeLatLng(geocoder, map, loc);
+        }
         window.location.href="/history/" + loc.lat() + "/" + loc.lng();
       });
       function placeMarker(location) {
@@ -36,6 +39,20 @@
       } 
       else {
         alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
+  function geocodeLatLng(geocoder, map, loc){//, infowindow) {
+    geocoder.geocode({'location': loc}, function(results, status) {
+      if (status === 'OK') {
+        if (results[0]) {
+          
+          localStorage.setItem("searchedAddress", results[0].formatted_address);
+        }
+      } 
+      else {
+        window.alert('Geocoder failed due to: ' + status);
       }
     });
   }
