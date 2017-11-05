@@ -116,7 +116,7 @@ def predict(request, lat=None, long=None):
     for i, prediction in enumerate(predictions):
         x = prediction + last_ob
         years.append(last_year + i + 1)
-        future_data.append(x//1 + 1 if x % 1 >= 0.5 else x//1)
+        future_data.append(x)
         last_ob = x
 
     return render(request, 'history/predict.html', {'axis_labels': axis_labels, 'historic_data': historic_data, 'years': years, 'future_data': future_data})
