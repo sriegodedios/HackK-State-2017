@@ -9,10 +9,14 @@
 #training-photo {
   max-width: 100%; }
 
+.card-header {
+  text-align: center; }
+
 html, body {
   height: 100%;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  min-width: 425px; }
 
 #floating-panel {
   position: absolute;
@@ -43,19 +47,23 @@ html, body {
 .historical #floating-panel {
   position: relative;
   padding: 0px;
+  height: 30px;
+  width: 100%;
+  margin: auto;
+  max-width: 600px;
   top: -10px;
   left: 0px;
-  padding-left: 0px;
   border: 1.2px solid #f2f2f2;
   border-radius: 5px;
-  padding-left: 2px; }
+  overflow: hidden; }
   .historical #floating-panel input[type="textbox"] {
-    width: 94%;
-    bottom: 1px; }
-  .historical #floating-panel textarea:focus, .historical #floating-panel input:focus {
-    outline-style: solid;
-    outline-width: 1px;
-    outline-color: #0275d8; }
+    position: absolute;
+    width: 100%;
+    left: 3px; }
+  .historical #floating-panel input[type="image"] {
+    position: absolute;
+    right: 0px;
+    left: auto; }
 
 /*# sourceMappingURL=style.css.map */
 

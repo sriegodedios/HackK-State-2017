@@ -1,6 +1,10 @@
+if(typeof(Storage) !== "undefined"){
+  document.getElementById("address").value = localStorage.getItem("searchedAddress");
+}
+
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8,
+    zoom: 5,
     center: {lat: 39.1836, lng: -96.5717}
   });
   var geocoder = new google.maps.Geocoder();
@@ -17,10 +21,15 @@ function initMap() {
   }
   function geocodeAddress(geocoder, resultsMap) {
     var address = document.getElementById('address').value;
+    if(typeof(Storage) !== "undefined") {
+      localStorage.setItem("searchedAddress", address);
+    }
     geocoder.geocode({'address': address}, function(results, status) {
       if (status === 'OK') {
         var loc = results[0].geometry.location;
+        restoreSearch();
         window.location.href="/predict/" + loc.lat() + "/" + loc.lng();
+        
       } 
       else {
         alert('Geocode was not successful for the following reason: ' + status);

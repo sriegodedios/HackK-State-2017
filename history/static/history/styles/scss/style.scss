@@ -11,10 +11,15 @@
   max-width:100%;
 }
 
+.card-header {
+  text-align: center;
+}
+
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  min-width: 425px;
 }
 
 #floating-panel {
@@ -50,23 +55,24 @@ html, body {
 .historical #floating-panel{
   position: relative;
   padding: 0px;
+  height: 30px;
+  width: 100%;
+  margin: auto;
+  max-width: 600px;
   top: -10px;
   left: 0px;
-  padding-left: 0px;
   border: 1.2px solid rgb(242,242,242);
   border-radius: 5px;
-  padding-left: 2px;
+  overflow: hidden;
   input[type="textbox"]{
-    width: 94%;
-    bottom: 1px;
+    position: absolute;
+    width: 100%;
+    left: 3px;
   }
-  textarea:focus, input:focus{
-    outline-style: solid;
-    outline-width: 1px;
-    outline-color: rgb(2,117,216);
+  input[type="image"]{
+    position:absolute;
+    right: 0px;
+    left: auto;
   }
-  //input[type="image"]:hover{
-   // background-color: lightgrey;
-  //}
 }
 /*# sourceMappingURL=style.css.map */
