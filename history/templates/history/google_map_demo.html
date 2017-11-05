@@ -2,12 +2,21 @@
 {% block title %} Google Map Demo {% endblock %}
 {% block content %}
 {% load static %}
+  <br/>
+  <div class="card">
+    <h3 class="card-header">My Google Maps Demo</h3>
+    <div class="card-body">
+      <div id="map"></div>
+      <script src="{% static 'history/scripts/map.js' %}"></script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs45NMgk3kOMM47toBBXMsZoNSsJDwers&callback=initMap">
+      </script>
+    </div>
+    <div class="card-footer">
+      2017 Google Maps used for educational purposes.
+    </div>
 
-    <h3>My Google Maps Demo</h3>
-    <div id="map"></div>
-    <script src="{% static 'history/scripts/map.js' %}"></script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs45NMgk3kOMM47toBBXMsZoNSsJDwers&callback=initMap">
-    </script>
+  </div>
+
 
 {% endblock %}
