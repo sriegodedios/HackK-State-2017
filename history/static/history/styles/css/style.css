@@ -1,6 +1,10 @@
 
 #map {
   height: 400px;
-  width: 100%; }
+  width: 100%;
+}
 
+#training-photo {
+  max-width:100%;
+}
 /*# sourceMappingURL=style.css.map */

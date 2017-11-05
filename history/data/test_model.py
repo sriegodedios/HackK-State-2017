@@ -26,7 +26,7 @@ size = int(len(X) * 0.66)
 train, test = X[0:size], X[size:]
 # train autoregression
 model = AR(train)
-model_fit = model.fit(maxlag=5, disp=False)
+model_fit = model.fit(maxlag=50, disp=False)
 window = model_fit.k_ar
 coef = model_fit.params
 # walk forward over time steps in test

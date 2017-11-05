@@ -2,5 +2,6 @@
 *.xml
 *.idea/
 *.vscode/
+__pycache__/
 mysite/local_settings.py
 staticfiles/

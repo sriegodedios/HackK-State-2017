@@ -24,13 +24,22 @@ def index(request):
 
     return render(request, 'history/index.html', {'table_head': header, 'table': output})
 
-def per_year(request):
+def predict(request):
     hurricanes_per_year = dict()
     for x in Hurricane.objects.filter(category__gte=1).order_by('start_date'):
         if x.start_date.year in hurricanes_per_year.keys():
             hurricanes_per_year[x.start_date.year] += 1
         else:
             hurricanes_per_year[x.start_date.year] = 1
+
+    axis_labels = ["Year", "Frequency"]
+    years = []
+    historic_data = []
+    future_data = []
+    for key in hurricanes_per_year.keys():
+        years.append(key)
+        historic_data.append(hurricanes_per_year[key])
+        future_data.append(0)
 
     # load dataset
     series = Series(hurricanes_per_year)
@@ -42,26 +51,20 @@ def per_year(request):
 
     # fit model
     model = AR(data)
-    model_fit = model.fit(maxlag=5, disp=False)
+    model_fit = model.fit(maxlag=50, disp=False)
 
-    future_years = []
-    future_data = []
+    
     # predict with model
     predictions = model_fit.predict(start=len(data), end=len(data) + 10)
     for i, prediction in enumerate(predictions):
         x = prediction + last_ob
-        future_years.append(last_year + i + 1)
-        future_data = x
+        years.append(last_year + i + 1)
+        future_data.append(x)
         last_ob = x
 
-    header = ["Year", "Frequency"]
-    historic_years = []
-    historic_data = []
-    for key in hurricanes_per_year.keys():
-        historic_years.append(key)
-        historic_data.append(hurricanes_per_year[key])
+    
 
-    return render(request, 'history/graph.html', {'table_head': header, 'historic_years': historic_years, 'historic_data': historic_data, 'future_years': future_years, 'future_data': future_data})
+    return render(request, 'history/graph.html', {'axis_labels': axis_labels, 'historic_data': historic_data, 'years': years, 'future_data': future_data})
 
 def generic(request, template_name):
     return render(request, template_name)
